@@ -10,7 +10,7 @@ func mean(bunch []int) float64 {
 		_ = count
 		sum += float64(num)
 	}
-	return sum / float64(len(bunch))
+	return math.Round(sum/float64(len(bunch))*100) / 100
 }
 
 func median(bunch []int) float64 {
@@ -52,7 +52,7 @@ func sd(bunch []int) float64 {
 		cur := float64(num)
 		sum += math.Pow(cur-mean, 2)
 	}
-	return math.Pow(sum/float64(len(bunch)), 0.5)
+	return math.Round(math.Pow(sum/float64(len(bunch)), 0.5)*100) / 100
 }
 
 func main() {
@@ -61,7 +61,11 @@ func main() {
 	scanln, err := fmt.Scanln(&tmp)
 	_ = scanln
 	for err == nil {
-		bunch = append(bunch, tmp)
+		if tmp > 100000 || tmp < -100000 {
+			fmt.Println("number out of range")
+		} else {
+			bunch = append(bunch, tmp)
+		}
 		scanln, err = fmt.Scanln(&tmp)
 	}
 	sort.Sort(sort.IntSlice(bunch))
