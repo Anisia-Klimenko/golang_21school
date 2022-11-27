@@ -15,42 +15,53 @@ var ext = ""
 
 func main() {
 	getFlags()
-	//files, err := ioutil.ReadDir(getPath())
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-
-	f := filepath.Walk(getPath(), func(path string, info os.FileInfo, err error) error {
+	inputPath := getPath()
+	inputFile, err := os.Open(inputPath)
+	if inputPath == "" || err != nil {
+		fmt.Println("bad path")
+	}
+	err = inputFile.Close()
+	if err != nil {
+		return
+	}
+	f := filepath.Walk(inputPath, func(path string, info os.FileInfo, err error) error {
 		if err == nil {
-			subPath := strings.TrimPrefix(path, getPath())
+			subPath := strings.TrimPrefix(path, inputPath)
 			if subPath != "" && !IsHiddenFile(subPath) {
-
-				if dirs && info.IsDir() {
-					fmt.Println(path)
+				if info.Mode()&(1<<2) != 0 {
+					if symlinks && info.Mode().Type() == os.ModeSymlink {
+						realPath, err := filepath.EvalSymlinks(path)
+						if err != nil {
+							fmt.Println(path, "-> [broken]")
+						} else {
+							fmt.Println(path, "->", realPath)
+						}
+					} else if files && info.Mode().IsRegular() {
+						if ext == "" || (ext != "" && filepath.Ext(path) == "."+ext) {
+							fmt.Println(path)
+						}
+					} else if dirs && info.IsDir() {
+						fmt.Println(path)
+					}
 				}
-
 			}
 		}
 		return nil
 	})
-
 	_ = f
-	//_ = files
-
-	//for _, file := range files {
-	//	fmt.Println(file.Name(), file.IsDir())
-	//}
-	fmt.Println(flag.Args())
 }
 
 func IsHiddenFile(filename string) bool {
+	if filename[0] == '/' {
+		return filename[1] == '.'
+	}
 	return filename[0] == '.'
 }
 
 func getPath() string {
 	var path string
 	if len(flag.Args()) == 0 {
-		path = "./"
+		path = ""
 	} else {
 		path = flag.Args()[0]
 	}
