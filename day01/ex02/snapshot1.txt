@@ -1,4 +1,5 @@
 /etc/stove/config.xml
+/Users/baker/recipes/database_version2.yaml
 /Users/baker/recipes/database.xml
 /var/log/orders.log
 /Users/baker/pokemon.avi
