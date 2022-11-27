@@ -7,10 +7,10 @@ import (
 	"os"
 )
 
-var DBReader interface {
+type DBReader interface {
 	read() (error, Recipes)
 	print(cakes Recipes)
-	convert() string
+	convert(cakes Recipes) string
 }
 
 type XMLname string
@@ -28,7 +28,6 @@ type Recipes struct {
 }
 
 func (filename XMLname) read() (error, Recipes) {
-	fmt.Println("XML DBReader")
 	file, err := os.ReadFile(string(filename))
 	if err != nil {
 		fmt.Println("cannot read input file:", filename, err)
@@ -63,7 +62,6 @@ func (filename XMLname) print(cakes Recipes) {
 }
 
 func (filename JSONname) read() (error, Recipes) {
-	fmt.Println("JSON DBReader")
 	file, err := os.ReadFile(string(filename))
 	if err != nil {
 		fmt.Println("cannot read input file:", filename)

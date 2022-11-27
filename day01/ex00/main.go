@@ -10,22 +10,24 @@ func main() {
 	var fileName *string
 	fileName = flag.String("f", "", "input file name")
 	flag.Parse()
+	var dbreader DBReader
+
 	if path.Ext(*fileName) == ".xml" {
-		err, content := XMLname(*fileName).read()
+		dbreader = XMLname(*fileName)
+		err, content := dbreader.read()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		//XMLname(*fileName).print(content)
-		fmt.Println(XMLname(*fileName).convert(content))
+		fmt.Println(dbreader.convert(content))
 	} else if path.Ext(*fileName) == ".json" {
-		err, content := JSONname(*fileName).read()
+		dbreader = JSONname(*fileName)
+		err, content := dbreader.read()
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
-		//JSONname(*fileName).print(content)
-		fmt.Println(JSONname(*fileName).convert(content))
+		fmt.Println(dbreader.convert(content))
 	} else {
 		fmt.Println("usage: ./readDB -f <filename>.xml")
 		fmt.Println("       ./readDB -f <filename>.json")

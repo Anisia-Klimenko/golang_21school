@@ -8,10 +8,10 @@ import (
 	"reflect"
 )
 
-var DBReader interface {
+type DBReader interface {
 	read() (error, Recipes)
 	print(cakes Recipes)
-	convert() string
+	convert(cakes Recipes) string
 }
 
 type XMLname string
@@ -36,7 +36,6 @@ func (filename XMLname) read() (error, Recipes) {
 		fmt.Println("cannot read input file:", filename, err)
 		return err, Recipes{nil}
 	}
-	_ = file
 	var cakes Recipes
 	err = xml.Unmarshal(file, &cakes)
 	if err != nil {

@@ -20,30 +20,32 @@ func main() {
 	oldDB := flag.String("old", "", "old database")
 	newDB := flag.String("new", "", "new database")
 	flag.Parse()
+	var dbreaderOld DBReader
+	var dbreaderNew DBReader
 
 	if path.Ext(*oldDB) == ".xml" && path.Ext(*newDB) == ".json" {
-		err, old := XMLname(*oldDB).read()
+		dbreaderOld = XMLname(*oldDB)
+		err, old := dbreaderOld.read()
 		if err != nil {
 			fmt.Println("old database is broken")
 			return
 		}
-		err, new := JSONname(*newDB).read()
+		dbreaderNew = JSONname(*newDB)
+		err, new := dbreaderNew.read()
 		if err != nil {
 			fmt.Println("new database is broken")
 			return
 		}
-		//JSONname(*newDB).print(new)
-		//fmt.Println("=========================")
-		//XMLname(*oldDB).print(old)
-		//_ = old
 		compare(old, new)
 	} else if path.Ext(*newDB) == ".xml" && path.Ext(*oldDB) == ".json" {
-		err, old := JSONname(*oldDB).read()
+		dbreaderOld = JSONname(*oldDB)
+		err, old := dbreaderOld.read()
 		if err != nil {
 			fmt.Println("old database is broken")
 			return
 		}
-		err, new := XMLname(*newDB).read()
+		dbreaderNew = XMLname(*newDB)
+		err, new := dbreaderNew.read()
 		if err != nil {
 			fmt.Println("new database is broken")
 			return

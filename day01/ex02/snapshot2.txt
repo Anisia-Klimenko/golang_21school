@@ -1,0 +1,5 @@
+/etc/stove/config.xml
+/Users/baker/recipes/database.xml
+/var/log/orders.log
+/Users/baker/pokemon.avi
+/etc/systemd/system/very_important/stash_location.jpg
