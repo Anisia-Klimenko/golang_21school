@@ -9,48 +9,26 @@ import (
 	"strings"
 )
 
-//stdout, err := cmd.Output()
-//
-//if err != nil {
-//	fmt.Println(err.Error())
-//	return
-//}
-//
-//// Print the output
-//fmt.Println(string(stdout))
-
-//cmd := exec.Command("cat")
-
-var _ = io.WriteString
-
 func main() {
-	cmd := exec.Command(os.Args[1], os.Args[2:]...)
-
-	var input []byte
-	_, _ = io.PipeReader.Read(io.PipeReader{}, input)
-
-	//for _, line := range strings.Split(strings.TrimSuffix(string(input), "\n"), "\n") {
-	//	cmd.Stdin = strings.NewReader(line)
-	//fmt.Println(input)
-	cmd.Stdin = strings.NewReader(string(input))
-	//cmd.Stdin = os.Stdin
-
-	out, err := cmd.CombinedOutput()
+	args := os.Args[2:]
+	input, err := io.ReadAll(os.Stdin)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println("error: io.ReadAll")
+		return
 	}
+	for _, line := range strings.Split(strings.TrimSuffix(string(input), "\n"), "\n") {
+		cmd := exec.Command(os.Args[1], append(args, line)...)
+		cmd.Stdin = strings.NewReader(line)
 
-	fmt.Printf("%s\n", out)
-	//}
+		out, err := cmd.CombinedOutput()
+		if err != nil {
+			log.Fatal(err)
+		}
 
-	//cmd.Stdin = os.Stdin
-	//
-	//out, err := cmd.CombinedOutput()
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//
-	//fmt.Printf("%s\n", out)
+		fmt.Printf("%s", out)
+	}
 }
 
 //echo -e "main.go\ngo.mod" | xargs cat
+//echo -e "main.go\ngo.mod" | xargs wc -l
+// echo -e "/Users/acristin/golang_21school/day02/\n." | xargs ls -l
