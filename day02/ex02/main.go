@@ -27,17 +27,21 @@ func main() {
 	cmd := exec.Command(os.Args[1], os.Args[2:]...)
 
 	var input []byte
-	content, _ := os.Stdin.Read(input)
-	for count, line := range strings.Split(strings.TrimSuffix(string(input), "\n"), "\n") {
-		cmd.Stdin = NewReline
+	_, _ = io.PipeReader.Read(io.PipeReader{}, input)
 
-		out, err := cmd.CombinedOutput()
-		if err != nil {
-			log.Fatal(err)
-		}
+	//for _, line := range strings.Split(strings.TrimSuffix(string(input), "\n"), "\n") {
+	//	cmd.Stdin = strings.NewReader(line)
+	//fmt.Println(input)
+	cmd.Stdin = strings.NewReader(string(input))
+	//cmd.Stdin = os.Stdin
 
-		fmt.Printf("%s\n", out)
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		log.Fatal(err)
 	}
+
+	fmt.Printf("%s\n", out)
+	//}
 
 	//cmd.Stdin = os.Stdin
 	//
@@ -48,3 +52,5 @@ func main() {
 	//
 	//fmt.Printf("%s\n", out)
 }
+
+//echo -e "main.go\ngo.mod" | xargs cat
