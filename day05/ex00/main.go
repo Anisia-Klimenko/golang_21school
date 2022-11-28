@@ -32,6 +32,13 @@ func countToys(tree *TreeNode, sum int) int {
 }
 
 func areToysBalanced(tree *TreeNode) bool {
+	if tree.Right == nil && tree.Left == nil {
+		return true
+	} else if tree.Right == nil {
+		return countToys(tree.Left, 0) == 0
+	} else if tree.Left == nil {
+		return countToys(tree.Right, 0) == 0
+	}
 	return countToys(tree.Left, 0) == countToys(tree.Right, 0)
 }
 
@@ -94,4 +101,20 @@ func main() {
 			&TreeNode{true, nil, nil}}}
 	printTree("", tree4, false, 0)
 	fmt.Println(YELLOW, "areToysBalanced", END, areToysBalanced(tree4))
+
+	var tree5 = &TreeNode{true, nil, nil}
+	printTree("", tree5, false, 0)
+	fmt.Println(YELLOW, "areToysBalanced", END, areToysBalanced(tree5))
+
+	var tree6 = &TreeNode{false, nil, nil}
+	printTree("", tree6, false, 0)
+	fmt.Println(YELLOW, "areToysBalanced", END, areToysBalanced(tree6))
+
+	var tree7 = &TreeNode{false, nil, &TreeNode{false, nil, nil}}
+	printTree("", tree7, false, 0)
+	fmt.Println(YELLOW, "areToysBalanced", END, areToysBalanced(tree7))
+
+	var tree8 = &TreeNode{false, nil, &TreeNode{true, nil, nil}}
+	printTree("", tree8, false, 0)
+	fmt.Println(YELLOW, "areToysBalanced", END, areToysBalanced(tree8))
 }

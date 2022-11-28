@@ -116,4 +116,36 @@ func main() {
 			&TreeNode{true, nil, nil}}}
 	printTree("", tree4, false, 0)
 	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree4))
+
+	var tree5 = &TreeNode{true, nil, nil}
+	printTree("", tree5, false, 0)
+	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree5))
+
+	var tree6 = &TreeNode{false, nil, nil}
+	printTree("", tree6, false, 0)
+	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree6))
+
+	var tree7 = &TreeNode{false, nil, &TreeNode{false, nil, nil}}
+	printTree("", tree7, false, 0)
+	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree7))
+
+	var tree8 = &TreeNode{false, nil, &TreeNode{true, nil, nil}}
+	printTree("", tree8, false, 0)
+	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree8))
+
+	var tree9 = &TreeNode{true,
+		&TreeNode{true,
+			&TreeNode{true, nil, &TreeNode{true,
+				&TreeNode{true,
+					&TreeNode{true, nil, nil},
+					&TreeNode{false, nil, nil}},
+				&TreeNode{false,
+					&TreeNode{true, nil, nil},
+					&TreeNode{true, nil, nil}}}},
+			&TreeNode{false, nil, nil}},
+		&TreeNode{false,
+			&TreeNode{true, nil, nil},
+			&TreeNode{true, nil, nil}}}
+	printTree("", tree9, false, 0)
+	fmt.Println(YELLOW, "unrollGarland", END, unrollGarland(tree9))
 }
