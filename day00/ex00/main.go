@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"flag"
+	"fmt"
+	"io"
+)
 import "sort"
 import "math"
 
@@ -55,22 +59,56 @@ func sd(bunch []int) float64 {
 	return math.Round(math.Pow(sum/float64(len(bunch)), 0.5)*100) / 100
 }
 
+var meanf = false
+var medianf = false
+var modef = false
+var sdf = false
+
+func getFlags() {
+	flag.BoolVar(&meanf, "mean", false, "mean")
+	flag.BoolVar(&medianf, "median", false, "median")
+	flag.BoolVar(&modef, "mode", false, "mode")
+	flag.BoolVar(&sdf, "sd", false, "sd")
+	flag.Parse()
+
+	if !meanf && !medianf && !modef && !sdf {
+		meanf = true
+		medianf = true
+		modef = true
+		sdf = true
+	}
+}
+
 func main() {
 	var bunch []int
 	var tmp int
+	getFlags()
 	scanln, err := fmt.Scanln(&tmp)
-	_ = scanln
+	if scanln == 0 {
+		return
+	}
 	for err == nil {
 		if tmp > 100000 || tmp < -100000 {
-			fmt.Println("number out of range")
+			print("number out of range\n")
 		} else {
 			bunch = append(bunch, tmp)
 		}
 		scanln, err = fmt.Scanln(&tmp)
 	}
+	if err != io.EOF {
+		fmt.Println(err)
+	}
 	sort.Sort(sort.IntSlice(bunch))
-	fmt.Println("Mean:", mean(bunch))
-	fmt.Println("Median:", median(bunch))
-	fmt.Println("Mode:", mode(bunch))
-	fmt.Println("SD:", sd(bunch))
+	if meanf {
+		fmt.Println("Mean:", mean(bunch))
+	}
+	if medianf {
+		fmt.Println("Median:", median(bunch))
+	}
+	if modef {
+		fmt.Println("Mode:", mode(bunch))
+	}
+	if sdf {
+		fmt.Println("SD:", sd(bunch))
+	}
 }
