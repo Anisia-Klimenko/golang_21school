@@ -132,3 +132,14 @@ func TestMinCoinsRecurringCoins(t *testing.T) {
 		t.Errorf("minCoins(%d, %v) = %v, expected %v", val, coins, got, res)
 	}
 }
+
+func TestMinCoinsRecurringCoins2(t *testing.T) {
+	coins := []int{4, 1, 3, 3}
+	val := 6
+	got := minCoins(val, coins)
+	sort.Ints(got)
+	res := []int{3, 3}
+	if !reflect.DeepEqual(got, res) {
+		t.Errorf("minCoins(%d, %v) = %v, expected %v", val, coins, got, res)
+	}
+}
