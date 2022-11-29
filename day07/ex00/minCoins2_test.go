@@ -6,6 +6,16 @@ import (
 	"testing"
 )
 
+func TestMinCoins2(t *testing.T) {
+	for i := range coins {
+		got := minCoins2(vals[i], coins[i])
+		sort.Ints(got)
+		if !reflect.DeepEqual(got, res[i]) {
+			t.Errorf("minCoins(%d, %v) = %v, expected %v", vals[i], coins[i], got, res[i])
+		}
+	}
+}
+
 func TestMinCoins2EmptyVal(t *testing.T) {
 	coins := []int{1, 5, 10}
 	val := 0
@@ -136,7 +146,7 @@ func TestMinCoins2RecurringCoins(t *testing.T) {
 func TestMinCoins2RecurringCoins2(t *testing.T) {
 	coins := []int{4, 1, 3, 3}
 	val := 6
-	got := minCoins(val, coins)
+	got := minCoins2(val, coins)
 	sort.Ints(got)
 	res := []int{3, 3}
 	if !reflect.DeepEqual(got, res) {
