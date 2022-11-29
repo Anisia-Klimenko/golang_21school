@@ -20,10 +20,10 @@ type Recipes struct {
 		Name        string `json:"name" xml:"name"`
 		Time        string `json:"time" xml:"stovetime"`
 		Ingredients []struct {
-			IngredientName  string `json:"ingredient_name" xml:"item>itemname"`
-			IngredientCount string `json:"ingredient_count" xml:"item>itemcount"`
-			IngredientUnit  string `json:"ingredient_unit,omitempty" xml:"item>itemunit"`
-		} `json:"ingredients" xml:"ingredients"`
+			IngredientName  string `json:"ingredient_name" xml:"itemname"`
+			IngredientCount string `json:"ingredient_count" xml:"itemcount"`
+			IngredientUnit  string `json:"ingredient_unit,omitempty" xml:"itemunit"`
+		} `json:"ingredients" xml:"ingredients>item"`
 	} `json:"cake" xml:"cake"`
 }
 
