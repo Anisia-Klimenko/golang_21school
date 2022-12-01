@@ -1,16 +1,16 @@
 {
-  properties: {
-    name: {
-        type:  text
+  "properties": {
+    "name": {
+        "type":  "text"
     },
-    address: {
-        type:  text
+    "address": {
+        "type":  "text"
     },
-    phone: {
-        type:  text
+    "phone": {
+        "type":  "text"
     },
-    location: {
-      type: geo_point
+    "location": {
+      "type": "geo_point"
     }
   }
 }

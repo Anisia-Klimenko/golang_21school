@@ -11,17 +11,21 @@
         },
         {
           "ingredient_name": "Strawberries",
-          "ingredient_count": "7"
+          "ingredient_count": "8"
         },
         {
-          "ingredient_name": "Vanilla extract",
+          "ingredient_name": "Coffee Beans",
           "ingredient_count": "2.5",
           "ingredient_unit": "tablespoons"
+        },
+        {
+          "ingredient_name": "Cinnamon",
+          "ingredient_count": "1"
         }
       ]
     },
     {
-      "name": "Blueberry Muffin Cake",
+      "name": "Moonshine Muffin",
       "time": "30 min",
       "ingredients": [
         {
