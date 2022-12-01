@@ -1,1 +1,5 @@
-package ex00
+package main
+
+func main() {
+
+}
