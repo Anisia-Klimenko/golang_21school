@@ -14,7 +14,6 @@ func BuyCandy(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&order)
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	if err != nil {
-		fmt.Fprintln(w, "here")
 		var response InlineResponse400
 		response.Error_ = "wrong fields or types"
 		convertJson, err := json.MarshalIndent(response, "", "    ")
