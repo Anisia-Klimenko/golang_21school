@@ -17,25 +17,6 @@ func getCert(certfile, keyfile string) (c tls.Certificate, err error) {
 	return
 }
 
-// ClientCertReqFunc returns a function for tlsConfig.GetClientCertificate
-func ClientCertReqFunc(certfile, keyfile string) func(*tls.CertificateRequestInfo) (*tls.Certificate, error) {
-	c, err := getCert(certfile, keyfile)
-
-	return func(certReq *tls.CertificateRequestInfo) (*tls.Certificate, error) {
-		fmt.Println("Received certificate request: sending certificate")
-		if err != nil || certfile == "" {
-			fmt.Println("I have no certificate")
-		} else {
-			err := OutputPEMFile(certfile)
-			if err != nil {
-				fmt.Printf("%v\n", err)
-			}
-		}
-		Wait()
-		return &c, nil
-	}
-}
-
 // CertReqFunc returns a function for tlsConfig.GetCertificate
 func CertReqFunc(certfile, keyfile string) func(*tls.ClientHelloInfo) (*tls.Certificate, error) {
 	c, err := getCert(certfile, keyfile)

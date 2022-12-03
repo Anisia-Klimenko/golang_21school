@@ -20,7 +20,6 @@ func main() {
 		os.Exit(1)
 	}
 	client := getClient()
-	//resp, err := client.Get("https://localhost:3333/buy_candy")
 	bodyPost := bytes.NewReader(clientJson)
 	resp, err := client.Post("https://localhost:3333/buy_candy", "application/json; charset=UTF-8", bodyPost)
 	must(err)
@@ -46,10 +45,7 @@ func getClient() *http.Client {
 	data, _ := ioutil.ReadFile("../minica.pem")
 	cp.AppendCertsFromPEM(data)
 
-	// c, _ := tls.LoadX509KeyPair("signed-cert", "key")
-
 	config := &tls.Config{
-		// Certificates: []tls.Certificate{c},
 		RootCAs:               cp,
 		GetClientCertificate:  ClientCertReqFunc("cert.pem", "key.pem"),
 		VerifyPeerCertificate: CertificateChains,
@@ -69,18 +65,3 @@ func must(err error) {
 		os.Exit(1)
 	}
 }
-
-// fmt.Println("Certificate authority:")
-// must(utils.OutputPEMFile("../ca/cert"))
-// cp, _ := x509.SystemCertPool() or
-// cp := x509.NewCertPool()
-// data, _ := ioutil.ReadFile("../ca/cert")
-// cp.AppendCertsFromPEM(data)
-
-// fmt.Println("My certificate:")
-// must(utils.OutputPEMFile("signed-cert"))
-// c, _ := tls.LoadX509KeyPair("signed-cert", "key")
-
-// InsecureSkipVerify: true,
-// RootCAs:               cp,
-// Certificates:          []tls.Certificate{c},
