@@ -35,6 +35,10 @@ func main() {
 		var fail InlineResponse400
 		json.NewDecoder(resp.Body).Decode(&fail)
 		fmt.Println(resp.StatusCode, fail.Error_)
+	} else if resp.StatusCode == 402 {
+		var fail InlineResponse402
+		json.NewDecoder(resp.Body).Decode(&fail)
+		fmt.Println(resp.StatusCode, fail.Error_)
 	}
 }
 

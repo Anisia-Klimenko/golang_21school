@@ -29,6 +29,19 @@ func main() {
 	must(err)
 
 	fmt.Printf("Status: %s  Body: %s\n", resp.Status, string(body))
+	if resp.StatusCode == 201 {
+		var success InlineResponse201
+		json.NewDecoder(resp.Body).Decode(&success)
+		fmt.Println(success.Thanks, "Your change is", success.Change)
+	} else if resp.StatusCode == 400 {
+		var fail InlineResponse400
+		json.NewDecoder(resp.Body).Decode(&fail)
+		fmt.Println(resp.StatusCode, "Error occurred:", fail.Error_)
+	} else if resp.StatusCode == 402 {
+		var fail InlineResponse402
+		json.NewDecoder(resp.Body).Decode(&fail)
+		fmt.Println(resp.StatusCode, "Error occurred:", fail.Error_)
+	}
 }
 
 var order Order
