@@ -1,0 +1,10 @@
+syntax = "proto3";
+package tutorial;
+
+import "google/protobuf/timestamp.proto";
+
+message Message {
+  string session_id = 1;
+  double frequency = 2;
+  google.protobuf.Timestamp time = 3;
+}

@@ -18,6 +18,11 @@
                 <itemcount>7</itemcount>
                 <itemunit></itemunit> <!-- itemunit may be empty  -->
             </item>
+            <item>
+                <itemname>Cinnamon</itemname>
+                <itemcount>1</itemcount>
+                <itemunit>pieces</itemunit>
+            </item>
             <!-- Here can be more ingredients  -->
         </ingredients>
     </cake>
