@@ -99,16 +99,18 @@ func main() {
 		fmt.Println(err)
 	}
 	sort.Sort(sort.IntSlice(bunch))
-	if meanf {
-		fmt.Println("Mean:", mean(bunch))
-	}
-	if medianf {
-		fmt.Println("Median:", median(bunch))
-	}
-	if modef {
-		fmt.Println("Mode:", mode(bunch))
-	}
-	if sdf {
-		fmt.Println("SD:", sd(bunch))
+	if len(bunch) != 0 {
+		if meanf {
+			fmt.Println("Mean:", mean(bunch))
+		}
+		if medianf {
+			fmt.Println("Median:", median(bunch))
+		}
+		if modef {
+			fmt.Println("Mode:", mode(bunch))
+		}
+		if sdf {
+			fmt.Println("SD:", sd(bunch))
+		}
 	}
 }
