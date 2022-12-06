@@ -12,8 +12,9 @@ import (
 )
 
 type Article struct {
-	id   int64  `pg:"articles.id"`
-	text string `pg:"articles.article"`
+	Id      int64  `pg:"articles.id"`
+	Preview string `pg:"articles.preview"`
+	Article string `pg:"articles.article"`
 }
 
 func createSchema(db *pg.DB) error {
@@ -69,23 +70,26 @@ func AllPosts(w http.ResponseWriter, r *http.Request) {
 	defer db.Close()
 }
 
-// InsertPost Create new blog post post using form submit
+// InsertPost Create new blog post using form submit
 func InsertPost(w http.ResponseWriter, r *http.Request) {
 	db := DBConn()
 	if r.Method == "POST" {
-		title := r.FormValue("title")
-		content := r.FormValue("content")
-		email := context.Get(r, "email").(string)
-		post1 := &Article{
-			Title:       title,
-			Content:     content,
-			AuthorEmail: email,
+		text := r.Form.Get("article")
+		var preview string
+		if len(text) <= 20 {
+			preview = text
+		} else {
+			preview = text[:20] + "..."
 		}
-		err := db.Insert(post1)
+		newPost := &Article{
+			Preview: preview,
+			Article: text,
+		}
+		err := db.Insert(newPost)
 		if err != nil {
-			panic(err)
+			fmt.Println("Error:", err)
 		}
 	}
 	defer db.Close()
-	http.Redirect(w, r, "/", 301)
+	http.Redirect(w, r, "/admin", 301)
 }

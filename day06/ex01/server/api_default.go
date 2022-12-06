@@ -80,6 +80,7 @@ func generateHTML(article string) (html string) {
 
 func AddArticle(w http.ResponseWriter, r *http.Request) {
 	AllPosts(w, r)
+	InsertPost(w, r)
 	//fmt.Fprintf(w, "adding article...")
 	text := r.Form.Get("article")
 	//generateHTML(text)

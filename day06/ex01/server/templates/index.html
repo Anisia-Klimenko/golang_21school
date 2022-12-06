@@ -6,7 +6,7 @@
   <thead class="thead-dark">
   <tr>
     <th>ID</th>
-    <th>Title</th>
+    <th>Preview</th>
     <th>View</th>
     <th>Edit</th>
     <th>Delete</th>
@@ -16,10 +16,9 @@
   {{ range .Items }}
   <tr>
     <th scope="col">{{ .Id }}</th>
-    <th scope="col"> {{ .Text }} </th>
+    <th scope="col"> {{ .Preview }} </th>
     <th scope="col"><a href="/show?id={{ .Id }}">View</a></th>
     <th scope="col"><a href="/edit?id={{ .Id }}">Edit</a></th>
-    <th scope="col"><a href="/delete?id={{ .Id }}">Delete</a><td>
   </tr>
   {{else}}<tr><strong>no articles</strong></tr>{{end}}
 
