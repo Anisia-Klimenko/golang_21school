@@ -59,4 +59,18 @@ var routes = Routes{
 		"/admin",
 		AdminIndex,
 	},
+
+	Route{
+		"AdminIndex",
+		"GET",
+		"/admin/new",
+		NewGet,
+	},
+
+	Route{
+		"AdminIndex",
+		"POST",
+		"/admin/new",
+		NewPost,
+	},
 }

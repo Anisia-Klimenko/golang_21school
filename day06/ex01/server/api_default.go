@@ -20,8 +20,7 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 			if r.Form.Get("password") == credentials.AdminPassword {
 				status = true
 				log.Println("admin", credentials.AdminLogin, "successfully logged in")
-				file, _ := os.ReadFile("resources/adminArticle.html")
-				fmt.Fprintf(w, string(file))
+				AllPosts(w, r)
 			} else {
 				status = false
 				log.Println("admin", credentials.AdminLogin, "log in error, wrong password")
@@ -79,12 +78,12 @@ func generateHTML(article string) (html string) {
 }
 
 func AddArticle(w http.ResponseWriter, r *http.Request) {
-	AllPosts(w, r)
 	InsertPost(w, r)
+	AllPosts(w, r)
 	//fmt.Fprintf(w, "adding article...")
-	text := r.Form.Get("article")
+	//text := r.Form.Get("article")
 	//generateHTML(text)
-	fmt.Fprintf(w, text)
+	//fmt.Fprintf(w, text)
 }
 
 func AdminIndex(w http.ResponseWriter, r *http.Request) {
@@ -93,8 +92,9 @@ func AdminIndex(w http.ResponseWriter, r *http.Request) {
 		file, _ := os.ReadFile("resources/admin.html")
 		fmt.Fprintf(w, string(file))
 	} else {
-		log.Println("GET adminArticle.html")
-		file, _ := os.ReadFile("resources/adminArticle.html")
-		fmt.Fprintf(w, string(file))
+		AllPosts(w, r)
+		//log.Println("GET adminArticle.html")
+		//file, _ := os.ReadFile("resources/adminArticle.html")
+		//fmt.Fprintf(w, string(file))
 	}
 }

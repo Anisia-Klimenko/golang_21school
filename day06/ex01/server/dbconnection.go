@@ -43,22 +43,27 @@ func DBConn() (db *pg.DB) {
 
 // NewPost Return new blog Post html form on GET
 func NewPost(w http.ResponseWriter, r *http.Request) {
-	data := context.Get(r, "data")
+	data := context.Get(r, "article")
 	t, _ := template.ParseFiles("templates/layout.html", "templates/new.html")
 	t.Execute(w, data)
+	http.Redirect(w, r, "/admin", 301)
+}
+
+func NewGet(w http.ResponseWriter, r *http.Request) {
+	t, _ := template.ParseFiles("templates/layout.html", "templates/new.html")
+	t.Execute(w, nil)
 }
 
 // AllPosts Get all blog posts and render template
 func AllPosts(w http.ResponseWriter, r *http.Request) {
 	db := DBConn()
 	var posts []Article
-	err := db.Model(&posts).Select()
+	err := db.Model(&posts).Order("id DESC").Select()
 	log.Println(posts, err)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
 	t, _ := template.ParseFiles("templates/layout.html", "templates/index.html")
-	//text := context.Get(r, "article")
 	data := struct {
 		Title string
 		Items []Article
@@ -91,5 +96,5 @@ func InsertPost(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	defer db.Close()
-	http.Redirect(w, r, "/admin", 301)
+	//http.Redirect(w, r, "/admin", 301)
 }

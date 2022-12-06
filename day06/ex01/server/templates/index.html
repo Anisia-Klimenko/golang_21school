@@ -1,15 +1,17 @@
 {{ define "content" }}
-<div class="container">
+<div class="container pb-4">
   <h1> All articles</h1>
 </div>
+<div class="container">
+  <a class="btn btn-primary mb-4" href="/admin/new/">Add +</a>
+</div>
+<div class="container pb-4">
 <table class="table">
   <thead class="thead-dark">
   <tr>
     <th>ID</th>
     <th>Preview</th>
     <th>View</th>
-    <th>Edit</th>
-    <th>Delete</th>
   </tr>
   </thead>
   <tbody>
@@ -18,10 +20,10 @@
     <th scope="col">{{ .Id }}</th>
     <th scope="col"> {{ .Preview }} </th>
     <th scope="col"><a href="/show?id={{ .Id }}">View</a></th>
-    <th scope="col"><a href="/edit?id={{ .Id }}">Edit</a></th>
   </tr>
-  {{else}}<tr><strong>no articles</strong></tr>{{end}}
+  {{else}}<div class="container pb-1"><strong>there are no articles yet, add first one</strong></div>{{end}}
 
   </tbody>
 </table>
+</div>
 {{ end }}
