@@ -61,16 +61,30 @@ var routes = Routes{
 	},
 
 	Route{
-		"AdminIndex",
+		"NewGet",
 		"GET",
 		"/admin/new",
 		NewGet,
 	},
 
 	Route{
-		"AdminIndex",
+		"NewPost",
 		"POST",
 		"/admin/new",
 		NewPost,
+	},
+
+	Route{
+		"ShowPost",
+		"GET",
+		"/admin/show",
+		ShowPost,
+	},
+
+	Route{
+		"Logo",
+		"GET",
+		"/amazing_logo.png",
+		SendLogo,
 	},
 }

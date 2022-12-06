@@ -8,11 +8,6 @@ import (
 	"os"
 )
 
-type AdmCred struct {
-	Login  string `json:"login"`
-	Passwd string `json:"password"`
-}
-
 func Admin(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	if !status {

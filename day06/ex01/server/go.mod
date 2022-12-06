@@ -5,15 +5,16 @@ go 1.18
 require github.com/gorilla/mux v1.8.0
 
 require (
-	golang.org/x/crypto v0.0.0-20220516162934-403b01795ae8
-	golang.org/x/net v0.0.0-20220907013720-d52c520e3766
+	github.com/go-pg/pg v8.0.7+incompatible
+	github.com/gorilla/context v1.1.1
+	github.com/nfnt/resize v0.0.0-20180221191011-83c6a9932646
 )
 
 require (
-	github.com/go-pg/pg v8.0.7+incompatible // indirect
-	github.com/gorilla/context v1.1.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
-	golang.org/x/sys v0.0.0-20220614162138-6c1b26c55098 // indirect
-	golang.org/x/text v0.3.8-0.20220509174342-b4bca84b0361 // indirect
+	github.com/onsi/ginkgo v1.16.5 // indirect
+	github.com/onsi/gomega v1.24.1 // indirect
+	golang.org/x/crypto v0.0.0-20220516162934-403b01795ae8 // indirect
+	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	mellium.im/sasl v0.3.0 // indirect
 )

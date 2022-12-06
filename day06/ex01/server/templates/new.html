@@ -6,9 +6,10 @@
     <form action = "/admin" method = "post" enctype="application/x-www-form-urlencoded">
     <div class="row justify-content-center align-items-center mt-5 pt-5">
       <div class="col-5"><textarea class="form-control" rows="5" cols="80" type="text" name="article"
-                                   autocomplete="off" placeholder="Write your article here ..."></textarea></div>
+                                   autocomplete="off" placeholder="Write your article here ..." minlength="1" required></textarea></div>
     </div>
     <div class="row justify-content-center align-items-center mt-2 pt-2">
+      <div class="col-1"><a href="/admin" class="btn btn-outline-primary">Back</a></div>
       <div class="col-1"><input type="submit" value="Add" class="btn btn-primary"></div>
     </div>
   </form>

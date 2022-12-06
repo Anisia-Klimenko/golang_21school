@@ -19,7 +19,7 @@
   <tr>
     <th scope="col">{{ .Id }}</th>
     <th scope="col"> {{ .Preview }} </th>
-    <th scope="col"><a href="/show?id={{ .Id }}">View</a></th>
+    <th scope="col"><a href="/admin/show?id={{ .Id }}">View</a></th>
   </tr>
   {{else}}<div class="container pb-1"><strong>there are no articles yet, add first one</strong></div>{{end}}
 

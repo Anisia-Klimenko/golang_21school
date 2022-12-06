@@ -45,6 +45,5 @@ func main() {
 	log.Printf("Server started")
 	initCredentials()
 	router := NewRouter()
-
 	log.Fatal(http.ListenAndServe(":8888", router))
 }
