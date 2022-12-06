@@ -10,6 +10,10 @@ require (
 )
 
 require (
+	github.com/go-pg/pg v8.0.7+incompatible // indirect
+	github.com/gorilla/context v1.1.1 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
 	golang.org/x/sys v0.0.0-20220614162138-6c1b26c55098 // indirect
 	golang.org/x/text v0.3.8-0.20220509174342-b4bca84b0361 // indirect
+	mellium.im/sasl v0.3.0 // indirect
 )

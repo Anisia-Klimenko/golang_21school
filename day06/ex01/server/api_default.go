@@ -8,29 +8,6 @@ import (
 	"os"
 )
 
-//func BuyCandy(w http.ResponseWriter, r *http.Request) {
-//	decoder := json.NewDecoder(r.Body)
-//	var convertJson []byte
-//	var order Order
-//	err := decoder.Decode(&order)
-//	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-//	if err != nil {
-//		w.WriteHeader(http.StatusBadRequest)
-//		response := InlineResponse400{Error_: "wrong fields or types"}
-//		convertJson, err = json.MarshalIndent(response, "", "    ")
-//		if err != nil {
-//			fmt.Println("Error MarshalIndent:", err)
-//		}
-//		fmt.Fprintf(w, string(convertJson))
-//		return
-//	}
-//
-//	if err != nil {
-//		fmt.Println("Error MarshalIndent:", err)
-//	}
-//	fmt.Fprintf(w, string(convertJson))
-//}
-
 type AdmCred struct {
 	Login  string `json:"login"`
 	Passwd string `json:"password"`
@@ -102,9 +79,10 @@ func generateHTML(article string) (html string) {
 }
 
 func AddArticle(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "adding article...")
+	AllPosts(w, r)
+	//fmt.Fprintf(w, "adding article...")
 	text := r.Form.Get("article")
-	generateHTML(text)
+	//generateHTML(text)
 	fmt.Fprintf(w, text)
 }
 
