@@ -87,4 +87,11 @@ var routes = Routes{
 		"/amazing_logo.png",
 		SendLogo,
 	},
+
+	Route{
+		"Pages",
+		"GET",
+		"/admin/pages",
+		AllPosts,
+	},
 }

@@ -54,7 +54,6 @@ func ShowPost(w http.ResponseWriter, r *http.Request) {
 	// Select user by primary key.
 	post := &Article{Id: nId}
 	err = db.Select(post)
-	//log.Printf("showPost -> %s", post.Preview)
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
@@ -95,21 +94,47 @@ func SendLogo(w http.ResponseWriter, r *http.Request) {
 // AllPosts Get all blog posts and render template
 func AllPosts(w http.ResponseWriter, r *http.Request) {
 	db := DBConn()
+	nPage, err := strconv.ParseInt(r.URL.Query().Get("page"), 10, 64)
+	if nPage == 0 {
+		nPage++
+	}
 	var posts []Article
-	err := db.Model(&posts).Order("id DESC").Select()
+	err = db.Model(&posts).Order("id DESC").Select()
 	log.Println("GET /admin AllPosts")
 	if err != nil {
 		fmt.Println("Error:", err)
 	}
 	t, _ := template.ParseFiles("templates/layout.html", "templates/index.html")
-	data := struct {
-		Title string
-		Items []Article
-	}{
-		Title: "Article redactor",
-		Items: posts,
+	cur := (nPage - 1) * 3
+	var curPosts []Article
+	if int(cur+3) > len(posts) {
+		curPosts = posts[cur:]
+	} else {
+		curPosts = posts[cur : cur+3]
 	}
-	t.Execute(w, data)
+	allPages := len(posts) / 3
+	if len(posts)%3 != 0 {
+		allPages++
+	}
+	var allPagesSlice []int
+	for i := 1; i <= allPages; i++ {
+		allPagesSlice = append(allPagesSlice, i)
+	}
+	data := struct {
+		Title    string
+		Items    []Article
+		AllPages []int
+		CurPage  int
+	}{
+		Title:    "Article redactor",
+		Items:    curPosts,
+		AllPages: allPagesSlice,
+		CurPage:  int(cur),
+	}
+	err = t.Execute(w, data)
+	if err != nil {
+		return
+	}
 	defer db.Close()
 }
 
@@ -119,9 +144,7 @@ var (
 	italicReg     = regexp.MustCompile(`\*(.*?)\*`)
 	strikeReg     = regexp.MustCompile(`\~\~(.*?)\~\~`)
 	underscoreReg = regexp.MustCompile(`__(.*?)__`)
-	//anchorReg     = regexp.MustCompile(`\[(.*?)\]\((.*?)\)[^\)]`)
-	anchorReg = regexp.MustCompile(`(https://)(?:\S+)(/*)`)
-	//(http.://([^\s]+))
+	anchorReg     = regexp.MustCompile(`(https://)(?:\S+)(/*)`)
 	escapeReg     = regexp.MustCompile(`^\>(\s|)`)
 	blockquoteReg = regexp.MustCompile(`\&gt\;(.*?)$`)
 	backtipReg    = regexp.MustCompile("`(.*?)`")
@@ -199,7 +222,6 @@ func InsertPost(w http.ResponseWriter, r *http.Request) {
 				preview = text[:20] + "..."
 			}
 			text = NewMarkdown(strings.NewReader(text))
-			//log.Println(text)
 			newPost := &Article{
 				Preview: preview,
 				Article: text,
@@ -211,5 +233,4 @@ func InsertPost(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 	defer db.Close()
-	//http.Redirect(w, r, "/admin", 301)
 }

@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -31,54 +30,9 @@ func Admin(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func generateHTML(article string) (html string) {
-	const tpl = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Article Redactor</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap" rel="stylesheet">
-</head>
-<body style="font-family: 'Montserrat';">
-		{{range .Items}}<div>{{ . }}</div>{{else}}<div><strong>no rows</strong></div>{{end}}
-	</body>
-</html>`
-
-	check := func(err error) {
-		if err != nil {
-			log.Fatal(err)
-		}
-	}
-	t, err := template.New("webpage").Parse(tpl)
-	check(err)
-
-	data := struct {
-		Title string
-		Items []string
-	}{
-		Title: "Article redactor",
-		Items: []string{
-			"My photos",
-			"My blog",
-			article,
-		},
-	}
-
-	err = t.Execute(os.Stdout, data)
-	check(err)
-
-	return
-}
-
 func AddArticle(w http.ResponseWriter, r *http.Request) {
 	InsertPost(w, r)
 	AllPosts(w, r)
-	//fmt.Fprintf(w, "adding article...")
-	//text := r.Form.Get("article")
-	//generateHTML(text)
-	//fmt.Fprintf(w, text)
 }
 
 func AdminIndex(w http.ResponseWriter, r *http.Request) {
@@ -88,8 +42,5 @@ func AdminIndex(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, string(file))
 	} else {
 		AllPosts(w, r)
-		//log.Println("GET adminArticle.html")
-		//file, _ := os.ReadFile("resources/adminArticle.html")
-		//fmt.Fprintf(w, string(file))
 	}
 }

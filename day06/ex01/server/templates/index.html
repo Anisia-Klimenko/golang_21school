@@ -3,7 +3,7 @@
   <h1> All articles</h1>
 </div>
 <div class="container">
-  <a class="btn btn-primary mb-4" href="/admin/new/">Add +</a>
+    <a class="btn btn-primary mb-4" href="/admin/new/">Add +</a>
 </div>
 <div class="container pb-4">
 <table class="table">
@@ -25,5 +25,12 @@
 
   </tbody>
 </table>
+</div>
+<div class="footer">
+    <div class="row justify-content-center align-items-center">
+      {{ range $i := .AllPages }}
+      <a href="/admin/pages?page={{ . }}" class="col-1">{{.}}</a>
+      {{ end }}
+    </div>
 </div>
 {{ end }}
