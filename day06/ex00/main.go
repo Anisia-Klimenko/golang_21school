@@ -1,11 +1,27 @@
 package main
 
 import (
+	"golang.org/x/image/font"
+	"golang.org/x/image/font/basicfont"
+	"golang.org/x/image/math/fixed"
 	"image"
 	"image/color"
 	"image/png"
 	"os"
 )
+
+func addLabel(img *image.RGBA, x, y int, label string) {
+	col := color.RGBA{R: 250, G: 250, B: 250, A: 255}
+	point := fixed.Point26_6{X: fixed.I(x), Y: fixed.I(y)}
+
+	d := &font.Drawer{
+		Dst:  img,
+		Src:  image.NewUniform(col),
+		Face: basicfont.Face7x13,
+		Dot:  point,
+	}
+	d.DrawString(label)
+}
 
 func main() {
 	width := 300
@@ -41,6 +57,9 @@ func main() {
 			}
 		}
 	}
+
+	addLabel(img, 78*width/100, height/10, "acristin")
+	addLabel(img, 78*width/100, height/6, "21 school")
 
 	f, _ := os.Create("amazing_logo.png")
 	err := png.Encode(f, img)

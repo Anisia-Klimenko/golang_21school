@@ -1,0 +1,29 @@
+{{ define "content" }}
+<div class="container pb-4">
+  <h1> All articles</h1>
+</div>
+<div class="container">
+  <a class="btn btn-primary mb-4" href="/admin/new/">Add +</a>
+</div>
+<div class="container pb-4">
+<table class="table">
+  <thead class="thead-dark">
+  <tr>
+    <th>ID</th>
+    <th>Preview</th>
+    <th>View</th>
+  </tr>
+  </thead>
+  <tbody>
+  {{ range .Items }}
+  <tr>
+    <th scope="col">{{ .Id }}</th>
+    <th scope="col"> {{ .Preview }} </th>
+    <th scope="col"><a href="/admin/show?id={{ .Id }}">View</a></th>
+  </tr>
+  {{else}}<div class="container pb-1"><strong>there are no articles yet, add first one</strong></div>{{end}}
+
+  </tbody>
+</table>
+</div>
+{{ end }}
