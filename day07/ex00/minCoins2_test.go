@@ -36,17 +36,6 @@ var MinCoins2TestsNegative = []MinCoins2Test{
 }
 
 func TestMinCoins2NegativeInput(t *testing.T) {
-	//go func() {
-	//	// do your testing
-	//	time.Sleep(5 * time.Second)
-	//	done <- true
-	//}()
-	//
-	//select {
-	//case <-timeout:
-	//	t.Fatal("Test didn't finish in time")
-	//case <-done:
-	//}
 	for _, i := range MinCoins2TestsNegative {
 		timeout := time.After(3 * time.Second)
 		done := make(chan []int)

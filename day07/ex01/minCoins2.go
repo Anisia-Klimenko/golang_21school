@@ -1,4 +1,4 @@
-package ex01
+package ex00
 
 import "sort"
 
@@ -17,6 +17,11 @@ func countRes(val int, coins []int) []int {
 }
 
 func minCoins2(val int, coins []int) []int {
+	for _, c := range coins {
+		if c <= 0 {
+			return []int{}
+		}
+	}
 	res1 := countRes(val, coins)
 	var res2 []int
 	for i := 0; i < len(coins); i++ {
@@ -25,5 +30,13 @@ func minCoins2(val int, coins []int) []int {
 			res1 = res2
 		}
 	}
-	return res1
+	var sum int
+	for _, r := range res1 {
+		sum += r
+	}
+	if sum == val {
+		return res1
+	} else {
+		return []int{}
+	}
 }

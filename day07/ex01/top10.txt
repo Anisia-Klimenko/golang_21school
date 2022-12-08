@@ -1,0 +1,10 @@
+BenchmarkMinCoins2Optimize1
+BenchmarkMinCoins2Dublicates1
+BenchmarkMinCoins2Dublicates2
+BenchmarkMinCoins2Dublicates0
+BenchmarkMinCoins2Optimize0
+BenchmarkMinCoins2Optimize2
+BenchmarkMinCoins2Optimize3
+BenchmarkMinCoins2Unsorted2
+BenchmarkMinCoins2Unsorted1
+BenchmarkMinCoins2Unsorted3
