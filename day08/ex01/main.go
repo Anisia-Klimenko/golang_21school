@@ -41,11 +41,13 @@ func describePlant(plant interface{}) {
 }
 
 func main() {
+	fmt.Println()
 	up1 := UnknownPlant{"rose", "triangle", 12}
 	describePlant(up1)
 
-	fmt.Println()
+	fmt.Println("----------------------")
 
 	up2 := AnotherUnknownPlant{255, "triangle", 12}
 	describePlant(up2)
+	fmt.Println()
 }
